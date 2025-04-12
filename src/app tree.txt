@@ -1,0 +1,17 @@
+weatherapp/
+├── build.gradle
+├── settings.gradle
+└── src/
+    └── main/
+        ├── java/
+        │   └── com/
+        │       └── weatherapp/
+        │           ├── Main.java
+        │           ├── controller/
+        │           │   └── MainWindowController.java
+        │           ├── model/
+        │           └── view/
+        │               └── MainWindowView.java
+        └── resources/
+            └── view/
+                └── MainWindow.fxml
