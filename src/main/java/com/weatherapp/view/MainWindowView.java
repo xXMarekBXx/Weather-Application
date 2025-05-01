@@ -1,10 +1,9 @@
 package com.weatherapp.view;
 
 import com.weatherapp.controller.MainWindowController;
-import com.weatherapp.model.WeatherData;
-import com.weatherapp.model.WeatherService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
 
 public class MainWindowView {
 
@@ -23,6 +22,12 @@ public class MainWindowView {
     MainWindowController mainWindowController;
 
     @FXML
+    private Label incorrectLabelCurrentLocation;
+
+    @FXML
+    private Label incorrectLabelVacationLocation;
+
+    @FXML
     public void initialize() {
 
         mainWindowController = new MainWindowController();
@@ -35,7 +40,7 @@ public class MainWindowView {
 
     @FXML
     void checkWeatherBtn() {
-        mainWindowController.checkWeatherBtnAction(yourCountry, yourCity, vacationCountry, vacationCity);
+        mainWindowController.checkWeatherBtnAction(yourCountry, yourCity, vacationCountry, vacationCity, incorrectLabelCurrentLocation, incorrectLabelVacationLocation);
     }
 
 }
