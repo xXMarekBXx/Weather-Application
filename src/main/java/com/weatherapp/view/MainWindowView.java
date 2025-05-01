@@ -1,6 +1,8 @@
 package com.weatherapp.view;
 
 import com.weatherapp.controller.MainWindowController;
+import com.weatherapp.model.WeatherData;
+import com.weatherapp.model.WeatherService;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -32,9 +34,8 @@ public class MainWindowView {
     }
 
     @FXML
-    void testBtn() {
-
-        mainWindowController.testBtnAction(yourCountry, yourCity, vacationCountry, vacationCity);
+    void checkWeatherBtn() {
+        mainWindowController.checkWeatherBtnAction(yourCountry, yourCity, vacationCountry, vacationCity);
     }
 
 }

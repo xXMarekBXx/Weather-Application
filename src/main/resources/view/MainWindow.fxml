@@ -7,7 +7,7 @@
 
 <AnchorPane prefHeight="698.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.weatherapp.view.MainWindowView">
    <children>
-      <Button layoutX="349.0" layoutY="374.0" mnemonicParsing="false" onAction="#testBtn" prefHeight="131.0" prefWidth="200.0" text="Test" />
+      <Button layoutX="349.0" layoutY="374.0" mnemonicParsing="false" onAction="#checkWeatherBtn" prefHeight="131.0" prefWidth="200.0" text="check weather" />
       <Label layoutX="137.0" layoutY="23.0" prefHeight="25.0" prefWidth="113.0" text="Current City:" />
       <Label layoutX="663.0" layoutY="27.0" prefHeight="17.0" prefWidth="243.0" text="Your holiday destination:" />
       <TextField fx:id="yourCity" layoutX="200.0" layoutY="125.0" text="City" />

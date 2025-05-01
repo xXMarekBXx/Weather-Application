@@ -10,6 +10,9 @@ weatherapp/
         │           ├── controller/
         │           │   └── MainWindowController.java
         │           ├── model/
+        │           │   ├── WeatherData.java
+        │           │   ├── WeatherDataFactory.java
+        │           │   └── WeatherService.java
         │           └── view/
         │               └── MainWindowView.java
         └── resources/

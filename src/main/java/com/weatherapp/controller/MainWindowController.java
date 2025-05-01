@@ -1,5 +1,7 @@
 package com.weatherapp.controller;
 
+import com.weatherapp.model.WeatherData;
+import com.weatherapp.model.WeatherService;
 import javafx.scene.control.TextField;
 
 public class MainWindowController {
@@ -16,21 +18,37 @@ public class MainWindowController {
         });
     }
 
-    public void testBtnAction(TextField yourCountry, TextField yourCity, TextField vacationCountry, TextField vacationCity ){
+    public void checkWeatherBtnAction(TextField yourCountry, TextField yourCity, TextField vacationCountry, TextField vacationCity ){
 
         //Current Location
+        System.out.println("Current Location:");
+        System.out.println();
         String yourCountryTextFieldInput = yourCountry.getText();
-        String yourCityTextFieldInput = yourCity.getText();
+
+        try {
+            WeatherService service = new WeatherService();
+            WeatherData data = service.getWeather(yourCity.getText());
+            System.out.println(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        System.out.println();
 
         //Destiny Location
+        System.out.println("Destiny Location:");
+        System.out.println();
         String vacationCountryTextFieldInput = vacationCountry.getText();
-        String vacationCityTextFieldInput = vacationCity.getText();
 
-        //Current Location
-        System.out.println("Current Country: " + yourCountryTextFieldInput + ", Your City: " + yourCityTextFieldInput);
-        //Destiny Location
-        System.out.println("Destiny Country: " + vacationCountryTextFieldInput + ", Destiny City: " + vacationCityTextFieldInput);
+        try {
+            WeatherService service = new WeatherService();
+            WeatherData data = service.getWeather(vacationCity.getText());
+            System.out.println(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
+        System.out.println();
         System.out.println("-----------------------------------------");
     }
 }
