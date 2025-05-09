@@ -2,12 +2,13 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="859.0" prefWidth="899.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.weatherapp.view.MainWindowView">
+<AnchorPane prefHeight="940.0" prefWidth="928.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.weatherapp.view.MainWindowView">
    <children>
-      <Button layoutX="317.0" layoutY="789.0" mnemonicParsing="false" onAction="#checkWeatherBtn" prefHeight="37.0" prefWidth="243.0" text="check weather" />
+      <Button layoutX="331.0" layoutY="110.0" mnemonicParsing="false" onAction="#checkWeatherBtn" prefHeight="37.0" prefWidth="243.0" text="check weather" />
       <Label layoutX="137.0" layoutY="23.0" prefHeight="25.0" prefWidth="113.0" text="Current City:" />
       <Label layoutX="663.0" layoutY="27.0" prefHeight="17.0" prefWidth="243.0" text="Your holiday destination:" />
       <TextField fx:id="yourCity" layoutX="194.0" layoutY="64.0" text="City" />
@@ -16,5 +17,7 @@
       <TextField fx:id="vacationCountry" layoutX="549.0" layoutY="64.0" text="Country" />
       <Label fx:id="incorrectLabelCurrentLocation" layoutX="64.0" layoutY="101.0" prefHeight="17.0" prefWidth="335.0" />
       <Label fx:id="incorrectLabelVacationLocation" layoutX="600.0" layoutY="101.0" prefHeight="17.0" prefWidth="328.0" />
+      <TextArea fx:id="currentLocationDay1TA" layoutX="14.0" layoutY="154.0" prefHeight="126.0" prefWidth="174.0" />
+      <TextArea fx:id="destinyLocationDay1TA" layoutX="732.0" layoutY="154.0" prefHeight="126.0" prefWidth="174.0" />
    </children>
 </AnchorPane>
