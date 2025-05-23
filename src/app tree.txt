@@ -10,10 +10,11 @@ weatherapp/
         │           ├── controller/
         │           │   └── MainWindowController.java
         │           ├── model/
-        |           |   ├── CountryValidator.java
+        │           │   ├── CountryValidator.java
+        │           │   ├── DailyWeatherData.java
         │           │   ├── WeatherData.java
         │           │   ├── WeatherDataFactory.java
-        │           │   └── WeatherService.java
+        │           │   ├── WeatherService.java
         │           └── view/
         │               └── MainWindowView.java
         └── resources/

@@ -1,7 +1,6 @@
 package com.weatherapp.model;
 
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -17,13 +16,9 @@ public class WeatherService {
 
         URL url = new URL(urlString);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
         connection.setRequestMethod("GET");
 
-        BufferedReader reader = new BufferedReader(
-                new InputStreamReader(connection.getInputStream())
-        );
-
+        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         StringBuilder responseBuilder = new StringBuilder();
         String line;
 
@@ -32,7 +27,6 @@ public class WeatherService {
         }
 
         reader.close();
-
         JSONObject jsonResponse = new JSONObject(responseBuilder.toString());
 
         return WeatherDataFactory.fromJson(jsonResponse);

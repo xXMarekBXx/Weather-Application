@@ -20,8 +20,6 @@ public class MainWindowView {
     @FXML
     private TextField vacationCity;
 
-    MainWindowController mainWindowController;
-
     @FXML
     private Label incorrectLabelCurrentLocation;
 
@@ -29,10 +27,12 @@ public class MainWindowView {
     private Label incorrectLabelVacationLocation;
 
     @FXML
-    private TextArea currentLocationDay1TA;
+    private TextArea currentLocationTA;
 
     @FXML
-    private TextArea destinyLocationDay1TA;
+    private TextArea destinyLocationTA;
+
+    MainWindowController mainWindowController;
 
     @FXML
     public void initialize() {
@@ -45,8 +45,8 @@ public class MainWindowView {
         mainWindowController.textFieldCleaner(vacationCity);
         incorrectLabelCurrentLocation.setVisible(false);
         incorrectLabelVacationLocation.setVisible(false);
-        currentLocationDay1TA.setVisible(false);
-        destinyLocationDay1TA.setVisible(false);
+        currentLocationTA.setVisible(false);
+        destinyLocationTA.setVisible(false);
     }
 
     @FXML
@@ -58,8 +58,7 @@ public class MainWindowView {
                 vacationCity,
                 incorrectLabelCurrentLocation,
                 incorrectLabelVacationLocation,
-                currentLocationDay1TA,
-                destinyLocationDay1TA);
+                currentLocationTA,
+                destinyLocationTA);
     }
-
 }
