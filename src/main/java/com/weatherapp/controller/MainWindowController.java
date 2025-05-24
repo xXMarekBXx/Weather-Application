@@ -21,10 +21,12 @@ public class MainWindowController {
     }
 
     public void showCityWeatherOnTextArea(TextField city, TextArea ta) throws Exception {
-        WeatherData data = service.getWeather(city.getText());
+        String cityAsStr = city.getText();
+        WeatherData data = service.getWeather(cityAsStr);
         System.out.println(data);
         ta.setVisible(true);
-        ta.setText(data.toString());
+        String dataAsStr = data.toString();
+        ta.setText(dataAsStr);
     }
 
     public void setAllItemsInvisible(Label incorrectLabel1, Label incorrectLabel2, TextArea... textAreas) {
@@ -32,6 +34,37 @@ public class MainWindowController {
         incorrectLabel2.setVisible(false);
         for (TextArea ta : textAreas) {
             ta.setVisible(false);
+        }
+    }
+
+    private void showLabelWithError(Label label, String errorMessage, String consoleMessage) {
+        label.setVisible(true);
+        label.setText(errorMessage);
+        System.out.println(consoleMessage);
+    }
+
+    private boolean validateWeather(String locationName, TextField city, TextField country, Label errorLabel) {
+        System.out.println(locationName + ":");
+        System.out.println();
+
+        if (city.getText().isEmpty()) {
+            showLabelWithError(errorLabel, "Please enter " + locationName.toLowerCase() + " city", locationName + " city field empty!");
+            return false;
+        }
+
+        if (!CountryValidator.isValidCountry(country.getText())) {
+            showLabelWithError(errorLabel, "You passed incorrect country or country code", "Incorrect country or country code for " + locationName);
+            return false;
+        }
+
+        return true;
+    }
+
+    private void showWeather(TextField city, TextArea textArea) {
+        try {
+            showCityWeatherOnTextArea(city, textArea);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -49,36 +82,5 @@ public class MainWindowController {
         }
 
         System.out.println("-----------------------------------------");
-    }
-
-    private boolean validateWeather(String locationName, TextField city, TextField country, Label errorLabel) {
-        System.out.println(locationName + ":");
-        System.out.println();
-
-        if (city.getText().isEmpty()) {
-            showError(errorLabel, "Please enter " + locationName.toLowerCase() + " city", locationName + " city field empty!");
-            return false;
-        }
-
-        if (!CountryValidator.isValidCountry(country.getText())) {
-            showError(errorLabel, "You passed incorrect country or country code", "Incorrect country or country code for " + locationName);
-            return false;
-        }
-
-        return true;
-    }
-
-    private void showWeather(TextField city, TextArea textArea) {
-        try {
-            showCityWeatherOnTextArea(city, textArea);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showError(Label label, String errorMessage, String consoleMessage) {
-        label.setVisible(true);
-        label.setText(errorMessage);
-        System.out.println(consoleMessage);
     }
 }

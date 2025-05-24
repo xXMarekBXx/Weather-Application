@@ -7,7 +7,7 @@ import java.util.List;
 public class WeatherDataFactory {
 
     private static final int DAYS_COUNT = 5;
-    private static final int TIME_STEP = 8; // Time 24h in API
+    private static final int TIME_STEP = 8; // The API provides a forecast every 3 hours, so we multiple it by 8 to get one full day
 
     public static WeatherData fromJson(JSONObject json) {
         List<DailyWeatherData> forecastList = new ArrayList<>();
