@@ -21,18 +21,40 @@ public class WeatherDataFactory {
 
     private static DailyWeatherData extractDailyForecast(JSONObject json, int index) {
         JSONObject dailyForecast = json.getJSONArray("list").getJSONObject(index);
-        JSONObject main = dailyForecast.getJSONObject("main");
-        JSONObject wind = dailyForecast.getJSONObject("wind");
-        JSONObject rain = dailyForecast.optJSONObject("rain");
 
-        String date = dailyForecast.getString("dt_txt").split(" ")[0];
-        String description = dailyForecast.getJSONArray("weather").getJSONObject(0).getString("description");
-        double temp = main.getDouble("temp");
-        int humidity = main.getInt("humidity");
-        double windSpeedKmh = wind.getDouble("speed") * 3.6;
-        int precipitationChance = (rain != null && rain.has("3h")) ? Math.min((int)(rain.getDouble("3h") * 40), 100) : 0;
+        String date = extractDate(dailyForecast);
+        String description = extractDescription(dailyForecast);
+        double temp = extractTemperature(dailyForecast);
+        int humidity = extractHumidity(dailyForecast);
+        double windSpeedKmh = extractWindSpeed(dailyForecast);
+        int precipitationChance = extractPrecipitationChance(dailyForecast);
 
         return new DailyWeatherData(index / TIME_STEP + 1, date, description, temp, humidity, windSpeedKmh, precipitationChance);
+    }
+
+    private static String extractDate(JSONObject dailyForecast) {
+        return dailyForecast.getString("dt_txt").split(" ")[0];
+    }
+
+    private static String extractDescription(JSONObject dailyForecast) {
+        return dailyForecast.getJSONArray("weather").getJSONObject(0).getString("description");
+    }
+
+    private static double extractTemperature(JSONObject dailyForecast) {
+        return dailyForecast.getJSONObject("main").getDouble("temp");
+    }
+
+    private static int extractHumidity(JSONObject dailyForecast) {
+        return dailyForecast.getJSONObject("main").getInt("humidity");
+    }
+
+    private static double extractWindSpeed(JSONObject dailyForecast) {
+        return dailyForecast.getJSONObject("wind").getDouble("speed") * 3.6;
+    }
+
+    private static int extractPrecipitationChance(JSONObject dailyForecast) {
+        JSONObject rain = dailyForecast.optJSONObject("rain");
+        return (rain != null && rain.has("3h")) ? Math.min((int) (rain.getDouble("3h") * 40), 100) : 0;
     }
 
     private static String formatWeatherForecast(List<DailyWeatherData> forecastList) {
@@ -41,7 +63,7 @@ public class WeatherDataFactory {
         forecastBuilder.append("---------------------\n");
 
         for (DailyWeatherData dailyWeather : forecastList) {
-            forecastBuilder.append(dailyWeather).append("---------------------\n");
+            forecastBuilder.append(dailyWeather).append("\n---------------------\n");
         }
 
         return forecastBuilder.toString();
