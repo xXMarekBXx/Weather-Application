@@ -1,5 +1,6 @@
 package com.weatherapp.model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class WeatherDataFactory {
         return new WeatherData(formatWeatherForecast(forecastList));
     }
 
-    private static DailyWeatherData extractDailyForecast(JSONObject json, int index) {
+    public static DailyWeatherData extractDailyForecast(JSONObject json, int index) {
         JSONObject dailyForecast = json.getJSONArray("list").getJSONObject(index);
 
         String date = extractDate(dailyForecast);
@@ -32,32 +33,36 @@ public class WeatherDataFactory {
         return new DailyWeatherData(index / TIME_STEP + 1, date, description, temp, humidity, windSpeedKmh, precipitationChance);
     }
 
-    private static String extractDate(JSONObject dailyForecast) {
-        return dailyForecast.getString("dt_txt").split(" ")[0];
+    public static String extractDate(JSONObject dailyForecast) {
+        return dailyForecast.optString("dt_txt", "").split(" ")[0];
     }
 
-    private static String extractDescription(JSONObject dailyForecast) {
-        return dailyForecast.getJSONArray("weather").getJSONObject(0).getString("description");
+    public static String extractDescription(JSONObject dailyForecast) {
+        JSONArray weatherArray = dailyForecast.optJSONArray("weather");
+        return (weatherArray != null && weatherArray.length() > 0) ? weatherArray.getJSONObject(0).optString("description", "") : "";
     }
 
-    private static double extractTemperature(JSONObject dailyForecast) {
-        return dailyForecast.getJSONObject("main").getDouble("temp");
+    public static double extractTemperature(JSONObject dailyForecast) {
+        JSONObject main = dailyForecast.optJSONObject("main");
+        return (main != null && main.has("temp")) ? main.getDouble("temp") : 0.0;
     }
 
-    private static int extractHumidity(JSONObject dailyForecast) {
-        return dailyForecast.getJSONObject("main").getInt("humidity");
+    public static int extractHumidity(JSONObject dailyForecast) {
+        JSONObject main = dailyForecast.optJSONObject("main");
+        return (main != null && main.has("humidity")) ? main.getInt("humidity") : 0;
     }
 
-    private static double extractWindSpeed(JSONObject dailyForecast) {
-        return dailyForecast.getJSONObject("wind").getDouble("speed") * 3.6;
+    public static double extractWindSpeed(JSONObject dailyForecast) {
+        JSONObject wind = dailyForecast.optJSONObject("wind");
+        return (wind != null && wind.has("speed")) ? wind.getDouble("speed") * 3.6 : 0.0;
     }
 
-    private static int extractPrecipitationChance(JSONObject dailyForecast) {
+    public static int extractPrecipitationChance(JSONObject dailyForecast) {
         JSONObject rain = dailyForecast.optJSONObject("rain");
         return (rain != null && rain.has("3h")) ? Math.min((int) (rain.getDouble("3h") * 40), 100) : 0;
     }
 
-    private static String formatWeatherForecast(List<DailyWeatherData> forecastList) {
+    public static String formatWeatherForecast(List<DailyWeatherData> forecastList) {
         StringBuilder forecastBuilder = new StringBuilder();
         forecastBuilder.append("Weather Forecast:\n");
         forecastBuilder.append("---------------------\n");

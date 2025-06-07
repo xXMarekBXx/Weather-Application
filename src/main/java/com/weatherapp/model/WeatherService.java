@@ -2,8 +2,10 @@ package com.weatherapp.model;
 
 import org.json.JSONObject;
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class WeatherService {
@@ -21,13 +23,13 @@ public class WeatherService {
         return BASE_URL + "?q=" + city + "&appid=" + API_KEY + "&units=metric&lang=en";
     }
 
-    private String fetchWeatherData(String urlString) throws Exception {
-        HttpURLConnection connection = openConnection(urlString);
-        return readResponse(connection);
-    }
-
-    private HttpURLConnection openConnection(String urlString) throws Exception {
+    public static HttpURLConnection openConnection(String urlString) throws IOException {
         URL url = new URL(urlString);
+
+        if (!url.getProtocol().startsWith("http")) {
+            throw new MalformedURLException("Invalid protocol: " + url.getProtocol());
+        }
+
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         connection.setRequestMethod("GET");
         return connection;
@@ -44,7 +46,12 @@ public class WeatherService {
         }
     }
 
-    private WeatherData parseWeatherData(String jsonResponse) {
+    private String fetchWeatherData(String urlString) throws Exception {
+        HttpURLConnection connection = openConnection(urlString);
+        return readResponse(connection);
+    }
+
+    public static WeatherData parseWeatherData(String jsonResponse) {
         JSONObject jsonObject = new JSONObject(jsonResponse);
         return WeatherDataFactory.fromJson(jsonObject);
     }
